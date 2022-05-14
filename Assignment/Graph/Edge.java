@@ -29,21 +29,21 @@ class Edge<T>{
         if(type == null)
             return 1.0;
         switch(type){
-            case "Titan":
+            case ParadisMap.titan:
                 if(intelligient < 5)
                     return 3.0;
                 else if(intelligient < 8)
                     return 2.0;
                 else
                     return 1.0;
-            case "Building":
+            case ParadisMap.building:
                 if(coordination < 5)
                     return 3.0;
                 else if(coordination < 8)
                     return 2.0;
                 else
                     return 1.0;
-            case "Tree":
+            case ParadisMap.tree:
                 if(agility < 5)
                     return 3.0;
                 else if(agility < 8)
