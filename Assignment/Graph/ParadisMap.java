@@ -1,5 +1,6 @@
+package Graph;
 import java.util.*;
-import Graph.*;
+
 
 public class ParadisMap {
     private Graph<Integer> graph;
