@@ -59,7 +59,7 @@ public class ParadisMap {
     }
 
     public ArrayList<ArrayList<Integer>> BestPathToKillTitan(int TitanPosition, int coordination, int intelligient, int agility){
-        return graph.dijkstra(0, TitanPosition, 4, 6, 7);
+        return graph.dijkstra(0, TitanPosition, coordination, intelligient, agility);
     }
 
     public ArrayList<ArrayList<Integer>> BestPathToKillTitan1(int[] TitanPosition, int coordination, int intelligient, int agility){
