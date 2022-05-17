@@ -1,22 +1,13 @@
 package Graph;
 import java.util.*;
 
-
 public class ParadisMap {
+    //Map of Paradis
     private Graph<Integer> graph;
+    //Type for node
     public static final String titan = "Titan";
     public static final String tree = "Tree";
     public static final String building = "Building";
-
-    /**
-     * Constructor use in priority queue
-     */
-    private class ArrayListComparator<T> implements Comparator<ArrayList<T>>{
-        @Override
-        public int compare(ArrayList<T> o1, ArrayList<T> o2) {
-            return Integer.compare(o1.size(), o2.size());
-        }
-    }
 
     /**
      * Construct a graph using given graph
@@ -58,49 +49,127 @@ public class ParadisMap {
         graph.addEdge(15, 14, titan);
     }
 
-    public ArrayList<ArrayList<Integer>> BestPathToKillTitan(int TitanPosition, int coordination, int intelligient, int agility){
-        return graph.dijkstra(0, TitanPosition, coordination, intelligient, agility);
+    /**
+     * Find the HamiltonianCycle in graph
+     * @param start
+     * @return a HamiltonianCycle from vertex "start"
+     */
+    public LinkedList<Integer> HamiltonianCycle(int start){
+        return graph.backtrack(start);
     }
 
-    public ArrayList<ArrayList<Integer>> BestPathToKillTitan1(int[] TitanPosition, int coordination, int intelligient, int agility){
-        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
-        PriorityQueue<ArrayList<Integer>> priorityQueue = new PriorityQueue<>(new ArrayListComparator<>());
+    /**
+     * Find the shortest path(s) to kill titan starting from vertex index 0
+     * @param TitanPosition
+     * @return a arraylist of arraylist that contain a shortest path like this:
+     *         [[0, 1, 6], [0, 5, 6]]
+     */
+    public ArrayList<ArrayList<Integer>> BestPathToKillTitan(int TitanPosition){
+        return graph.dijkstra(0, TitanPosition, 10, 10, 10);
+    }
 
-        for(int i = 0; i < TitanPosition.length; i++){
-            ArrayList<ArrayList<Integer>> list = BestPathToKillTitan(TitanPosition[i], coordination, intelligient, agility);
-            for(int j = 0; j < list.size(); j++)
-                priorityQueue.add(list.get(j));
-        }
+    /**
+     * Return the length of path
+     * @param path
+     * @return length of path
+     */
+    public int timeToReach(ArrayList<Integer> path){
+        return path.size()-1;
+    }
+
+    /**
+     * Find the shortest path(s) to kill a moving titan starting from vertex index 0
+     * Shorter path with longer time to kill titan is consider as short.
+     * @param TitanPosition
+     * @return a arraylist of arraylist that contain a shortest path like this:
+     *         [[0, 1, 6], [0, 5, 6]]
+     */
+    public ArrayList<ArrayList<Integer>> BestPathToKillTitan1(int[] TitanPosition){
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        PriorityQueue<ArrayList<Integer>> priorityQueue = new PriorityQueue<>((o1, o2) -> {return Integer.compare(o1.size(), o2.size());});
+
+        for(int i = 0; i < TitanPosition.length; i++)
+            priorityQueue.addAll(BestPathToKillTitan(TitanPosition[i]));
 
         while(!priorityQueue.isEmpty()){
             ArrayList<Integer> path = priorityQueue.poll();
-            int time = time(TitanPosition, path);
-            if(path.size()-1 <= time)
+            if(time(TitanPosition, path) > 0)
                 res.add(path);
         }
 
         for(int i = 1; i < res.size(); i++){
-            if(res.get(i).size() > res.get(i-1).size())
+            if(timeToReach(res.get(i)) > timeToReach(res.get(i-1)))
                 res.remove(i--);
             else if(time(TitanPosition, res.get(i)) > time(TitanPosition, res.get(i-1)))
+                res.remove(i--);
+            else if(res.get(i).equals(res.get(i-1)))
                 res.remove(i--);
         }
 
         return res;
     }
 
-    public LinkedList<Integer> HamiltonianCycle(int start){
-        return graph.backtrack(start);
+    /**
+     * Return the time to kill titan
+     * @param path
+     * @param TitanPosition
+     * @return the time titan be kill
+     */
+    public int timeToKillTitan(ArrayList<Integer> path, int[] TitanPosition){
+        if(time(TitanPosition, path) > 0)
+            return Math.max(timeToReach(path), time(TitanPosition, path)-1);
+
+        return -1;
     }
 
+    /**
+     * Return time for titan stay in the end of path
+     * @param array
+     * @param path
+     * @return the time+1 when titan reach the end of path
+     */
     private int time(int[] array, ArrayList<Integer> path){
-        return indexOf(array, path.get(path.size()-1)) + 2;
+        ArrayList<Integer> list = indexOf(array, path.get(path.size()-1));
+        for(int i = 0; i < list.size(); i++){
+            if(timeToReach(path) <= list.get(i)*2+1)
+                return list.get(i)*2+1;
+        }
+
+        return -1;
     }
 
-    private int indexOf(int[] array, int element){
+    private ArrayList<Integer> indexOf(int[] array, int element){
+        ArrayList<Integer> res = new ArrayList<>();
         for(int i = 0; i < array.length; i++)
             if(array[i] == element)
-                return i;
-        return -1;
+                res.add(i);
+        return res;
+    }
+
+    /**
+     * Find the shortest path(s) to kill titan starting from vertex index 0 consider the characteristic
+     * @param TitanPosition
+     * @return a arraylist of arraylist that contain a shortest path like this:
+     *         [[0, 1, 6], [0, 5, 6]]
+     */
+    public ArrayList<ArrayList<Integer>> BestPathToKillTitan2(int TitanPosition, int coordination, int intelligient, int agility){
+        return graph.dijkstra(0, TitanPosition, coordination, intelligient, agility);
+    }
+
+    /**
+     * Return the time require for character reach the end of path consider characteristic
+     * @param path
+     * @param coordination
+     * @param intelligient
+     * @param agility
+     * @return time require for character reach the end of path
+     */
+    public int timeToReach(ArrayList<Integer> path, int coordination, int intelligient, int agility){
+        int sum = 1;
+
+        for(int i = 0; i < path.size()-2; i++)
+            sum += graph.getEdge(path.get(i), path.get(i+1)).variaWeight(coordination, intelligient, agility);
+    
+        return sum;
     }
 }
