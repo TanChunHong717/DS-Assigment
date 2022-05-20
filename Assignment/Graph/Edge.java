@@ -27,30 +27,30 @@ class Edge<T>{
      */
     public double variaWeight(int coordination, int intelligient, int agility){
         if(type == null)
-            return 1.0;
+            return 1 + 1;
         switch(type){
             case ParadisMap.titan:
                 if(intelligient < 5)
-                    return 3.0;
+                    return 3 + 1;
                 else if(intelligient < 8)
-                    return 2.0;
+                    return 2 + 1;
                 else
-                    return 1.0;
+                    return 1 + 1;
             case ParadisMap.building:
                 if(coordination < 5)
-                    return 3.0;
+                    return 3 + 1;
                 else if(coordination < 8)
-                    return 2.0;
+                    return 2 + 1;
                 else
-                    return 1.0;
+                    return 1 + 1;
             case ParadisMap.tree:
                 if(agility < 5)
-                    return 3.0;
+                    return 3 + 1;
                 else if(agility < 8)
-                    return 2.0;
+                    return 2 + 1;
                 else
-                    return 1.0;
+                    return 1 + 1;
         }
-        return 1.0;
+        return 1;
     }
 }
