@@ -53,18 +53,29 @@ public class Graph<T> {
     public Vertex<T> getVertex(T name){
         return vertices.get(name);
     }
+
+    /**
+     * Return the the frist edge adjacent from vertex "from" to vertex "to"
+     * @param from
+     * @param to
+     * @return the edge find, null if no such vertex or edge exist
+     * @throws NoSuchElementException
+     */
+    public Edge<T> getEdge(T from, T to){
+        Vertex<T> vertex = getVertex(from);
+        if(vertex == null)
+            return null;
+        
+        for(int i = 0; i < vertex.edges.size(); i++)
+            if(vertex.edges.get(i).pointTo == to)
+                return vertex.edges.get(i);
+
+        return null;
+    }
     
     /**
-     * Dijkstra Algorithm to find all shIterator<T> iter = vertices.keySet().iterator();
-        while(iter.hasNext()){
-            T temp = iter.next();
-            found.put(temp, false);
-            distance.put(temp, Double.MAX_VALUE);
-        }
-        distance.put(start, 0.0);
-        ArrayList<T> temp = new ArrayList<>();
-        temp.add(start);
-        res.add(temp);ortest path from vertex start to vertex end
+     * Dijkstra Algorithm to find all shortest path from vertex start to vertex end
+     * consider characteristic
      * @param start
      * @param end
      * @return a arraylist of arraylist that contain a shortest path like this:
