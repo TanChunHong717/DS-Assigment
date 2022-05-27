@@ -94,15 +94,18 @@ public class ParadisMap {
         while(!priorityQueue.isEmpty()){
             ArrayList<Integer> path = priorityQueue.poll();
             if(time(TitanPosition, path) > 0)
-                res.add(path);
+                if(res.size() == 0 || res.get(res.size() - 1).size() == path.size())
+                    res.add(path);
+                else
+                    break;
         }
 
-        for(int i = 1; i < res.size(); i++){
-            if(timeToReach(res.get(i)) > timeToReach(res.get(i-1)))
+        for(int i = 0; i < res.size()-1; i++){
+            if(timeToKillTitan(res.get(i), TitanPosition) > timeToKillTitan(res.get(i+1), TitanPosition))
                 res.remove(i--);
-            else if(time(TitanPosition, res.get(i)) > time(TitanPosition, res.get(i-1)))
-                res.remove(i--);
-            else if(res.get(i).equals(res.get(i-1)))
+            else if(timeToKillTitan(res.get(i), TitanPosition) < timeToKillTitan(res.get(i+1), TitanPosition))
+                res.remove(i-- + 1);
+            else if(res.get(i).equals(res.get(i+1)))
                 res.remove(i--);
         }
 
