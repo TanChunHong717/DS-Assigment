@@ -11,5 +11,13 @@ package Titan;
  * @author AINA SOFEA AZHAR
  */
 public class NineTitan extends Titan{
-    public final int dangerRisk = 19;
+    public int index;
+
+    public int getDangerRisk(){
+        return 19;
+    }
+
+    public String toString(){
+        return "Nine Titan Risk = 19";
+    }
 }

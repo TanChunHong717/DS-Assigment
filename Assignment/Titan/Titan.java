@@ -13,43 +13,7 @@ package Titan;
  * @author AINA SOFEA AZHAR
  */
 public abstract class Titan {
-   int dangerRisk;
-}
-            
-           
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-            
-            
- 
-    
-
-
-    
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   public int index;
+   public abstract int getDangerRisk();
+   public abstract String toString();
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

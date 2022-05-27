@@ -11,5 +11,13 @@ package Titan;
  * @author AINA SOFEA AZHAR
  */
 public class AbnormalTitan extends Titan{
-    public final static int dangerRisk = 15;
+    public int index;
+
+    public int getDangerRisk(){
+        return 15;
+    }
+
+    public String toString(){
+        return "Abnormal Titan Risk = 15";
+    }
 }

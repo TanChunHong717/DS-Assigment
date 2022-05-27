@@ -11,17 +11,17 @@ import java.util.Random;
  * @author AINA SOFEA AZHAR
  */
 public class NormalTitan extends Titan{
-      
-        int dangerRisk;
-        int height;
-        int walkingLegs;
-        int runningSpeed;
-        String walkingPattern;
-        boolean canClimb;
+        public int index;
+        private int dangerRisk;
+        private int height;
+        private int walkingLegs;
+        private int runningSpeed;
+        private String walkingPattern;
+        private boolean canClimb;
         
         private static Random r = new Random();
         
-        public void NormalTitan() {
+        public NormalTitan(){
             Height();
             WalkingLegs();
             RunningSpeed();
@@ -87,6 +87,11 @@ public class NormalTitan extends Titan{
         
         public int getDangerRisk() {
             return dangerRisk;
+        }
+
+        public String toString(){
+            return String.format("Normal Titan (%dm, %d legs, %dms, %s, %s) Risk = %d", 
+                height, walkingLegs, runningSpeed, walkingPattern, (canClimb)?"Can climb":"Can not climb", dangerRisk);
         }
 }
 

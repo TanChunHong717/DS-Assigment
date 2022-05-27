@@ -1,16 +1,69 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import Wall.Wall;
 import Graph.ParadisMap;
+import Titan.*;
 
 public final class Driver {
     private static Scanner input = new Scanner(System.in);
     private static ParadisMap map = new ParadisMap();
     public static void main(String[] args) {
+        scountingMissionInWall();
+    }
+
+    private static void titanEvualateAndKillingPriority(){
+        System.out.println("This page can help you to evualate titan and determine the killing priority.");
+        Random rand = new Random();
+        PriorityQueue<Titan> pq = new PriorityQueue<>((o1, o2) -> {return Integer.compare(o2.getDangerRisk(), o1.getDangerRisk());});
+        while(true){
+            int numOfTitan = getInput(1, Integer.MAX_VALUE, "Number of titan: ");
+            if(numOfTitan == 1)
+                System.out.println("\nGenerating 1 titan.");
+            else
+                System.out.println("\nGenerating " + numOfTitan + " titans.");
+            
+            for(int i = 1; i <= numOfTitan; i++){
+                int c = rand.nextInt(3);
+                Titan titan;
+                if(c == 0)
+                    titan = new NormalTitan();
+                else if(c == 1)
+                    titan = new AbnormalTitan();
+                else
+                    titan = new NineTitan();
+                System.out.println("Titan " + i + ": " + titan.toString());
+                titan.index = i;
+                pq.add(titan);
+            }
+
+            int totalDistance = 0;
+            int prevPos = 0;
+            System.out.println("\nSequence to be killed: ");
+            while(!pq.isEmpty()){
+                Titan titan = pq.poll();
+                if(!pq.isEmpty() && titan.getDangerRisk() == pq.peek().getDangerRisk()){
+                    PriorityQueue<Titan> container = new PriorityQueue<>((o1, o2) -> {return Integer.compare(o2.getDangerRisk(), o1.getDangerRisk());});
+                    while(!pq.isEmpty() && pq.peek().getDangerRisk() == titan.getDangerRisk()){
+                        if(Math.abs(pq.peek().index - prevPos) < Math.abs(titan.index - prevPos)){
+                            container.add(titan);
+                            titan = pq.poll();
+                        }else
+                            container.add(pq.poll());
+                    }
+                    while(!container.isEmpty())
+                        pq.add(container.poll());
+                }
+
+                System.out.print("Titan " + titan.index);
+                if(!pq.isEmpty())
+                    System.out.print(" --> ");
+                totalDistance += Math.abs(prevPos - titan.index);
+                prevPos = titan.index;
+            }
+            System.out.println("\nTotal distance moved: " + totalDistance);
+            if(wantToQuit())
+                return;
+        }
     }
 
     private static void scountingMissionInWall(){
@@ -22,9 +75,7 @@ public final class Driver {
                 System.out.print(path.get(i) + "-->");
             System.out.println(path.get(path.size() - 1));
 
-            System.out.print("Enter Y if you want to stay at this page: ");
-            String line = input.nextLine();
-            if(line.length() == 0 || line.charAt(0) != 'Y')
+            if(wantToQuit())
                 return;
         }
     }
