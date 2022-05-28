@@ -12,7 +12,8 @@ package Titan;
  */
 public class NineTitan extends Titan{
     public int index;
-
+    public int position;
+    
     public int getDangerRisk(){
         return 19;
     }

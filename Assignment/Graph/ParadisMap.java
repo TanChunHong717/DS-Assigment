@@ -160,6 +160,16 @@ public class ParadisMap {
     }
 
     /**
+     * Find the shortest path(s) to kill titan starting from vertex index 0 consider the characteristic
+     * @param TitanPosition
+     * @return a arraylist of arraylist that contain a shortest path like this:
+     *         [[0, 1, 6], [0, 5, 6]]
+     */
+    public ArrayList<ArrayList<Integer>> realBattle(int currentPos, int TitanPosition, int coordination, int intelligient, int agility){
+        return graph.dijkstra(currentPos, TitanPosition, coordination, intelligient, agility);
+    }
+
+    /**
      * Return the time require for character reach the end of path consider characteristic
      * @param path
      * @param coordination

@@ -14,6 +14,7 @@ package Titan;
  */
 public abstract class Titan {
    public int index;
+   public int position;
    public abstract int getDangerRisk();
    public abstract String toString();
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

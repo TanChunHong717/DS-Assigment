@@ -12,6 +12,7 @@ import java.util.Random;
  */
 public class NormalTitan extends Titan{
         public int index;
+        public int position;
         private int dangerRisk;
         private int height;
         private int walkingLegs;
