@@ -1,7 +1,5 @@
 import java.io.FileNotFoundException;
-import java.nio.channels.Pipe;
 import java.util.*;
-import java.util.regex.PatternSyntaxException;
 
 import Character.CharacterList;
 import Character.Character;
