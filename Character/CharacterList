@@ -13,6 +13,10 @@ public class CharacterList  {
 
     LinkedList<Character> character = new LinkedList<>();
     
+    /**
+    * Read character data from text file and create instance of character
+    * before storing into character linked list
+    */
     public CharacterList() throws FileNotFoundException {                   
         try (
             Scanner s = new Scanner (new FileReader("CharacterList.txt"))) {
@@ -88,6 +92,11 @@ public class CharacterList  {
     
     //sort methods
     
+    /**
+    *sort characteristics (height, weight, strength, agility, intelligence, coordination, leadership)
+    *in increasing order
+    */
+   
     public Character[] sortWeight(){
         Character[] array = (Character[])character.toArray();
         Arrays.sort(array, (o1, o2)->{return Integer.compare(o1.getWeight(), o2.getWeight());});
@@ -132,7 +141,7 @@ public class CharacterList  {
     
     
     
-   //binary sort methods
+   //binary sort methods for characteristics
   
     public static int binarySearchWeight(Character[] array, int weight){
         int low = 0;
