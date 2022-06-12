@@ -5,22 +5,9 @@ import Character.CharacterList;
 import Character.Character;
 import Converter.Converter;
 import Wall.Wall;
-import Graph.ParadisMap;
 import Titan.*;
 
 public final class Driver {
-    public static Scanner input = new Scanner(System.in);
-    public static ParadisMap map = new ParadisMap();
-    public static CharacterList characterList;
-    public static Character[] sortedStrength;
-    public static Character[] sortedAgility;
-    public static Character[] sortedIntelligence;
-    public static Character[] sortedCoordination;
-    public static Character[] sortedLearderShip;
-    public static Character[] sortedHeight;
-    public static Character[] sortedWeight;
-    public static boolean sorted = false;;
-
     public static void main(String[] args) {
         System.out.println("-----Attack Of Titan-----");
 
@@ -31,7 +18,7 @@ public final class Driver {
             switch(DriverHelpher.getInput(1, 8, "Enter your choice: ")){
                 case 1:
                     addCharacter();
-                    sorted = false;
+                    DriverHelpher.sorted = false;
                     break;
                 case 2:
                     sortAndSearchCharacter();
@@ -53,8 +40,8 @@ public final class Driver {
                     break;
                 case 8:
                     System.out.println("Saving contents to the file...");
-                    if(characterList != null)
-                        characterList.close();
+                    if(DriverHelpher.characterList != null)
+                        DriverHelpher.characterList.close();
                     System.out.println("Program end.");
                     return;
             }
@@ -65,11 +52,11 @@ public final class Driver {
         System.out.println("This page allow you to add charater in files.");
         while(true){
             try{
-                if(characterList == null)
-                    characterList = new CharacterList();
+                if(DriverHelpher.characterList == null)
+                    DriverHelpher.characterList = new CharacterList();
                 System.out.print("Enter name: ");    
-                String name = input.nextLine();
-                if(characterList.contains(name.trim())){
+                String name = DriverHelpher.input.nextLine();
+                if(DriverHelpher.characterList.contains(name.trim())){
                     System.out.println("Character is already in list");
                     if(DriverHelpher.wantToQuit())
                         return;
@@ -77,11 +64,11 @@ public final class Driver {
                         continue;
                 }
                 System.out.print("Enter characteristic: ");
-                String[] characteristic = input.nextLine().split(" ");
+                String[] characteristic = DriverHelpher.input.nextLine().split(" ");
                 Character character = new Character(name, Integer.parseInt(characteristic[0]), Integer.parseInt(characteristic[1]), 
                     Integer.parseInt(characteristic[2]), Integer.parseInt(characteristic[3]), Integer.parseInt(characteristic[4]), 
                     Integer.parseInt(characteristic[5]), Integer.parseInt(characteristic[6]));
-                characterList.addCharacter(character);
+                DriverHelpher.characterList.addCharacter(character);
 
                 System.out.println("Characters is sucessfully added.");
                 if(DriverHelpher.wantToQuit())
@@ -92,7 +79,7 @@ public final class Driver {
                     return;
                 }
                 else
-                    System.out.println("Please enter only 7 integers seperate by blanks.");
+                    System.out.println("Failed to add character.\nPlease enter only 7 integers seperate by blanks.");
             }
         }
     }
@@ -102,16 +89,17 @@ public final class Driver {
         while(true){
             System.out.println("1. Sorting\n2. Finding ability\n3. Quit");
             try{
-                if(characterList == null)
-                    characterList = new CharacterList();
-                if(!sorted){
-                    sortedStrength = characterList.sortStrength();
-                    sortedAgility = characterList.sortAgility();
-                    sortedIntelligence = characterList.sortIntelligence();
-                    sortedLearderShip = characterList.sortLeadership();
-                    sortedHeight = characterList.sortHeight();
-                    sortedWeight = characterList.sortWeight();
-                    sorted = true;
+                if(DriverHelpher.characterList == null)
+                    DriverHelpher.characterList = new CharacterList();
+                if(!DriverHelpher.sorted){
+                    DriverHelpher.sortedStrength = DriverHelpher.characterList.sortStrength();
+                    DriverHelpher.sortedAgility = DriverHelpher.characterList.sortAgility();
+                    DriverHelpher.sortedIntelligence = DriverHelpher.characterList.sortIntelligence();
+                    DriverHelpher.sortedCoordination = DriverHelpher.characterList.sortCoordination();
+                    DriverHelpher.sortedLearderShip = DriverHelpher.characterList.sortLeadership();
+                    DriverHelpher.sortedHeight = DriverHelpher.characterList.sortHeight();
+                    DriverHelpher.sortedWeight = DriverHelpher.characterList.sortWeight();
+                    DriverHelpher.sorted = true;
                 }
                 int temp = DriverHelpher.getInput(1, 2, "Enter your choice: ");
                 switch(temp){
@@ -220,7 +208,7 @@ public final class Driver {
         System.out.println("This page can help you to find a scounting path(Hamiltonian Cycle) started from any given point.");
         while(true){
             int start = DriverHelpher.getInput(0, 15, "Enter starting point: ");
-            List<Integer> path = map.HamiltonianCycle(start);
+            List<Integer> path = DriverHelpher.map.HamiltonianCycle(start);
             for(int i = 0; i < path.size()-1; i++)
                 System.out.print(path.get(i) + "-->");
             System.out.println(path.get(path.size() - 1));
@@ -234,7 +222,7 @@ public final class Driver {
         System.out.println("This page can help you to find a shortest path to kill titan.");
         while(true){
             System.out.println("1. Titan in constant location.\n2. Titan will move.\n3. Choose a character to kill titan\n4. Real Battle\n5. Quit");
-            switch(DriverHelpher.getInput(1, 4, "Enter your choice: ")){
+            switch(DriverHelpher.getInput(1, 5, "Enter your choice: ")){
                 case 1:
                     DriverHelpher.killFixedTitan();
                     break;
@@ -277,7 +265,7 @@ public final class Driver {
         //    ^ukgc$rd(vsq$gh$zshrqkg$gwkzsml)h$dbeszudl
         while (true) {
             System.out.print("Enter Marley sentence: ");
-            String from = input.nextLine();
+            String from = DriverHelpher.input.nextLine();
             String to = converter.convert(from);
             System.out.println(to);
             if(DriverHelpher.wantToQuit())
@@ -293,7 +281,7 @@ public final class Driver {
             int num = DriverHelpher.getInput("Enter number of layers: "); 
             while(num-- > 0){
                 System.out.print("Enter bricks of layers: ");
-                try(Scanner scanner = new Scanner(input.nextLine());){
+                try(Scanner scanner = new Scanner(DriverHelpher.input.nextLine());){
                     List<Integer> list = new LinkedList<>();
                     while(scanner.hasNext()){
                         int temp = scanner.nextInt();

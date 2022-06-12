@@ -8,16 +8,29 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Character.CharacterList;
+import Graph.ParadisMap;
 import Titan.AbnormalTitan;
 import Titan.NineTitan;
 import Titan.NormalTitan;
 import Titan.Titan;
 import Character.Character;
 
-public class DriverHelpher {
+public final class DriverHelpher {
+    public static Scanner input = new Scanner(System.in);
+    public static ParadisMap map = new ParadisMap();
+    public static CharacterList characterList;
+    public static Character[] sortedStrength;
+    public static Character[] sortedAgility;
+    public static Character[] sortedIntelligence;
+    public static Character[] sortedCoordination;
+    public static Character[] sortedLearderShip;
+    public static Character[] sortedHeight;
+    public static Character[] sortedWeight;
+    public static boolean sorted = false;;
+    
     public static boolean wantToQuit(){
         System.out.print("Enter Y if you want to stay at this page: ");
-        String line = Driver.input.nextLine();
+        String line = input.nextLine();
         if(line.length() == 0 || line.charAt(0) != 'Y')
             return true;
         return false;
@@ -27,15 +40,15 @@ public class DriverHelpher {
         System.out.print(str);
         while(true){
             try{
-                int res = Driver.input.nextInt();
+                int res = input.nextInt();
                 if(res >= from && res <= to){
-                    Driver.input.nextLine();
+                    input.nextLine();
                     return res;
                 }
                 else 
                     throw new InputMismatchException();
             }catch(Exception e){
-                Driver.input.nextLine();
+                input.nextLine();
                 if(from == 1 && to == Integer.MAX_VALUE)
                     System.out.println("Please enter an positive integer. ");
                 else
@@ -50,12 +63,12 @@ public class DriverHelpher {
     }
 
     public static Character choseCharacter() throws FileNotFoundException{
-        if(Driver.characterList == null)
-            Driver.characterList = new CharacterList();
+        if(characterList == null)
+            characterList = new CharacterList();
 
         while(true){
             System.out.print("Enter the character's name: ");
-            Character character = Driver.characterList.getCharacter(Driver.input.nextLine().trim());
+            Character character = characterList.getCharacter(input.nextLine().trim());
             if(character == null)
                 System.out.println("Character not exist.");
             else
@@ -67,31 +80,31 @@ public class DriverHelpher {
         System.out.println("1. Height\n2. Weight\n3. Strength\n4. Agility\n5. Intelligence\n6. Coordination\n7. Leadership");
         switch(getInput(1, 7, "Enter your choice:")){
             case 1:
-                for(Character character : Driver.sortedHeight)
+                for(Character character : sortedHeight)
                     System.out.println(character.getName() + " " + character.getHeight());
                 break;
             case 2:
-                for(Character character : Driver.sortedWeight)
+                for(Character character : sortedWeight)
                     System.out.println(character.getName() + " " + character.getWeight());
                 break;
             case 3:
-                for(Character character : Driver.sortedStrength)
+                for(Character character : sortedStrength)
                     System.out.println(character.getName() + " " + character.getStrength());
                 break;
             case 4:
-                for(Character character : Driver.sortedAgility)
+                for(Character character : sortedAgility)
                     System.out.println(character.getName() + " " + character.getAgility());
                 break;
             case 5:
-                for(Character character : Driver.sortedIntelligence)
+                for(Character character : sortedIntelligence)
                     System.out.println(character.getName() + " " + character.getIntelligence());
                 break;
             case 6:
-                for(Character character : Driver.sortedCoordination)
+                for(Character character : sortedCoordination)
                     System.out.println(character.getName() + " " + character.getCoordination());
                 break;
             case 7:
-                for(Character character : Driver.sortedLearderShip)
+                for(Character character : sortedLearderShip)
                     System.out.println(character.getName() + " " + character.getLeadership());
                 break;
         }
@@ -105,7 +118,7 @@ public class DriverHelpher {
         switch(getInput(1, 7, "Enter your choice: ")){
             case 1:
                 val = getInput("Height: ");
-                characters = CharacterList.binarySearchHeight(Driver.sortedHeight, val);
+                characters = CharacterList.binarySearchHeight(sortedHeight, val);
                 if(characters != null)
                     for(Character character : characters)
                         System.out.println(character.getName() + " " + character.getHeight());
@@ -114,7 +127,7 @@ public class DriverHelpher {
                 break;
             case 2:
                 val = getInput("Weight: ");
-                characters = CharacterList.binarySearchStrength(Driver.sortedWeight, val);
+                characters = CharacterList.binarySearchWeight(sortedWeight, val);
                 if(characters != null)
                     for(Character character : characters)
                         System.out.println(character.getName() + " " + character.getWeight());
@@ -123,7 +136,7 @@ public class DriverHelpher {
                 break;
             case 3:
                 val = getInput(0, 12,"Strength: ");
-                characters = CharacterList.binarySearchStrength(Driver.sortedStrength, val);
+                characters = CharacterList.binarySearchStrength(sortedStrength, val);
                 if(characters != null)
                     for(Character character : characters)
                         System.out.println(character.getName() + " " + character.getStrength());
@@ -132,7 +145,7 @@ public class DriverHelpher {
                 break;
             case 4:
                 val = getInput(0, 12, "Agility: ");
-                characters = CharacterList.binarySearchAgility(Driver.sortedAgility, val);
+                characters = CharacterList.binarySearchAgility(sortedAgility, val);
                 if(characters != null)
                     for(Character character : characters)
                         System.out.println(character.getName() + " " + character.getAgility());
@@ -141,7 +154,7 @@ public class DriverHelpher {
                 break;
             case 5:
                 val = getInput(0, 12, "Intelligence: ");
-                characters = CharacterList.binarySearchIntelligence(Driver.sortedIntelligence, val);
+                characters = CharacterList.binarySearchIntelligence(sortedIntelligence, val);
                 if(characters != null)
                     for(Character character : characters)
                         System.out.println(character.getName() + " " + character.getIntelligence());
@@ -150,7 +163,7 @@ public class DriverHelpher {
                 break;
             case 6:
                 val = getInput(0, 12, "Coordination: ");
-                characters = CharacterList.binarySearchCoordination(Driver.sortedCoordination, val);
+                characters = CharacterList.binarySearchCoordination(sortedCoordination, val);
                 if(characters != null)
                     for(Character character : characters)
                         System.out.println(character.getName() + " " + character.getCoordination());
@@ -159,7 +172,7 @@ public class DriverHelpher {
                 break;
             case 7:
                 val = getInput(0, 12, "Leadership: ");
-                characters = CharacterList.binarySearchLeaderShip(Driver.sortedLearderShip, val);
+                characters = CharacterList.binarySearchLeaderShip(sortedLearderShip, val);
                 if(characters != null)
                     for(Character character : characters)
                         System.out.println(character.getName() + " " + character.getLeadership());
@@ -172,20 +185,20 @@ public class DriverHelpher {
 
     public static void killFixedTitan(){
         int position = getInput(0, 15, "Enter location of titan: ");
-        ArrayList<ArrayList<Integer>> lists = Driver.map.BestPathToKillTitan(position);
+        ArrayList<ArrayList<Integer>> lists = map.BestPathToKillTitan(position);
         for(int i = 0; i < lists.size(); i++){
             for(int j = 0; j < lists.get(i).size()-1; j++)
                 System.out.print(lists.get(i).get(j) + "-->");
             System.out.println(lists.get(i).get(lists.get(i).size() - 1));
         }
-        System.out.println("Times to reach location: " + Driver.map.timeToReach(lists.get(0)));
+        System.out.println("Times to reach location: " + map.timeToReach(lists.get(0)));
     }
 
     public static void killMovedTitan(){
         int[] move = null;
         while(move == null){
             System.out.print("Enter the locations of titan(separated by white blank): ");
-            try(Scanner scanner = new Scanner(Driver.input.nextLine());){    
+            try(Scanner scanner = new Scanner(input.nextLine());){    
                 List<Integer> list = new LinkedList<>();
                 while(scanner.hasNext()){
                     int temp = scanner.nextInt();
@@ -198,24 +211,24 @@ public class DriverHelpher {
                 System.out.println("Please enter integers between 0 to 15 that separates with white blank only. ");
             }
         }
-        ArrayList<ArrayList<Integer>> lists = Driver.map.BestPathToKillTitan1(move);
+        ArrayList<ArrayList<Integer>> lists = map.BestPathToKillTitan1(move);
         for(int i = 0; i < lists.size(); i++){
             for(int j = 0; j < lists.get(i).size()-1; j++)
                 System.out.print(lists.get(i).get(j) + "-->");
             System.out.println(lists.get(i).get(lists.get(i).size() - 1));
         }
-        System.out.println("Times to kill titan: " + Driver.map.timeToKillTitan(lists.get(0), move));
+        System.out.println("Times to kill titan: " + map.timeToKillTitan(lists.get(0), move));
     }
 
     public static void killFixedTitan(Character character){
         int position = getInput(0, 15, "Enter location of titan: ");
-        ArrayList<ArrayList<Integer>> lists = Driver.map.BestPathToKillTitan2(position, character.getCoordination(), character.getIntelligence(), character.getAgility());
+        ArrayList<ArrayList<Integer>> lists = map.BestPathToKillTitan2(position, character.getCoordination(), character.getIntelligence(), character.getAgility());
         for(int i = 0; i < lists.size(); i++){
             for(int j = 0; j < lists.get(i).size()-1; j++)
                 System.out.print(lists.get(i).get(j) + "-->");
             System.out.println(lists.get(i).get(lists.get(i).size() - 1));
         }
-        System.out.println("Times to reach location: " + Driver.map.timeToReach(lists.get(0)));
+        System.out.println("Times to reach location: " + map.timeToReach(lists.get(0)));
     }
 
     public static void realBattle(Character character){
@@ -256,7 +269,7 @@ public class DriverHelpher {
             if(prevPos == titan.position)
                 continue;
             
-            ArrayList<Integer> path = Driver.map.realBattle(prevPos, titan.position, character.getCoordination(), character.getIntelligence(), character.getAgility()).get(0);
+            ArrayList<Integer> path = map.realBattle(prevPos, titan.position, character.getCoordination(), character.getIntelligence(), character.getAgility()).get(0);
             for(int j = 0; j < path.size(); j++){
                 if(j == path.size()-1)
                     System.out.println(path.get(j));

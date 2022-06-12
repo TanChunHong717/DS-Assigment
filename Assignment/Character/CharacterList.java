@@ -135,30 +135,13 @@ public class CharacterList {
         return array;
     }
     
-    
-    
    //binary search methods
     public static Character[] binarySearchWeight(Character[] array, int weight){
-        if(fbinarySearchWeight(array, weight) == -1)
+        int low = leftbinarySearchWeight(array, weight)+1;
+        int high = rightbinarySearchWeight(array, weight)+1;
+        if(low == high && array[low].getWeight() != weight)
             return null;
-        return Arrays.copyOfRange(array, leftbinarySearchWeight(array, weight)+1, rightbinarySearchWeight(array, weight)+1);
-    }
-
-    private static int fbinarySearchWeight(Character[] array, int weight){
-        int low = 0;
-        int high = array.length -1;
-        
-	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
-
-                if(array[mid].getWeight() == weight)
-                    return mid;
-		        else if (array[mid].getWeight() > weight) 
-			        high = mid - 1;
-		        else
-			        low = mid + 1;
-	      }
-	      return -1; 
+        return Arrays.copyOfRange(array, low, high);
     }
 
     private static int rightbinarySearchWeight(Character[] array, int weight){
@@ -166,7 +149,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getWeight() > weight) 
 			      high = mid - 1;
@@ -181,7 +164,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getWeight() < weight) 
 			      low = mid + 1;
@@ -192,26 +175,11 @@ public class CharacterList {
     }
     
     public static Character[] binarySearchHeight(Character[] array, int height){
-        if(fbinarySearchHeight(array, height) == -1)
+        int low = leftbinarySearchHeight(array, height)+1;
+        int high = rightbinarySearchHeight(array, height)+1;
+        if(low == high && array[low].getHeight() != height)
             return null;
-        return Arrays.copyOfRange(array, leftbinarySearchHeight(array, height)+1, rightbinarySearchHeight(array, height)+1);
-    }
-
-    private static int fbinarySearchHeight(Character[] array, int height){
-        int low = 0;
-        int high = array.length -1;
-        
-	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
-
-                if(array[mid].getHeight() == height)
-                    return mid;
-		        else if (array[mid].getHeight() > height) 
-			        high = mid - 1;
-		        else
-			        low = mid + 1;
-	      }
-	      return -1; 
+        return Arrays.copyOfRange(array, low, high);
     }
 
     private static int rightbinarySearchHeight(Character[] array, int height){
@@ -219,7 +187,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getHeight() > height) 
 			      high = mid - 1;
@@ -234,7 +202,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getHeight() < height) 
 			      low = mid + 1;
@@ -245,26 +213,11 @@ public class CharacterList {
     }
     
     public static Character[] binarySearchStrength(Character[] array, int strength){
-        if(fbinarySearchStrength(array, strength) == -1)
+        int low = leftbinarySearchStrength(array, strength)+1;
+        int high = rightbinarySearchStrength(array, strength)+1;
+        if(low == high && array[low].getStrength() != strength)
             return null;
-        return Arrays.copyOfRange(array, leftbinarySearchStrength(array, strength)+1, rightbinarySearchStrength(array, strength)+1);
-    }
-
-    private static int fbinarySearchStrength(Character[] array, int strength){
-        int low = 0;
-        int high = array.length -1;
-        
-	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
-
-                if(array[mid].getStrength() == strength)
-                    return mid;
-		        else if (array[mid].getStrength() > strength) 
-			        high = mid - 1;
-		        else
-			        low = mid + 1;
-	      }
-	      return -1; 
+        return Arrays.copyOfRange(array, low, high);
     }
 
     private static int rightbinarySearchStrength(Character[] array, int strength){
@@ -272,7 +225,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getStrength() > strength) 
 			      high = mid - 1;
@@ -288,7 +241,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getStrength() < strength) 
 			      low = mid + 1;
@@ -299,26 +252,11 @@ public class CharacterList {
     }
 
     public static Character[] binarySearchAgility(Character[] array, int agility){
-        if(fbinarySearchAgility(array, agility) == -1)
+        int low = leftbinarySearchAgility(array, agility)+1;
+        int high = rightbinarySearchAgility(array, agility)+1;
+        if(low == high && array[low].getAgility() != agility)
             return null;
-        return Arrays.copyOfRange(array, leftbinarySearchAgility(array, agility)+1, rightbinarySearchAgility(array, agility)+1);
-    }
-
-    private static int fbinarySearchAgility(Character[] array, int agility){
-        int low = 0;
-        int high = array.length -1;
-        
-	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
-
-                if(array[mid].getAgility() == agility)
-                    return mid;
-		        else if (array[mid].getAgility() > agility) 
-			        high = mid - 1;
-		        else
-			        low = mid + 1;
-	      }
-	      return -1; 
+        return Arrays.copyOfRange(array, low, high);
     }
 
     private static int rightbinarySearchAgility(Character[] array, int agility){
@@ -326,7 +264,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getAgility() > agility) 
 			      high = mid - 1;
@@ -341,7 +279,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getAgility() < agility) 
 			      low = mid + 1;
@@ -352,26 +290,11 @@ public class CharacterList {
     }
 
     public static Character[] binarySearchIntelligence(Character[] array, int intelligence){
-        if(fbinarySearchIntelligence(array, intelligence) == -1)
+        int low = leftbinarySearchIntelligence(array, intelligence)+1;
+        int high = rightbinarySearchIntelligence(array, intelligence)+1;
+        if(low == high && array[low].getIntelligence() != intelligence)
             return null;
-        return Arrays.copyOfRange(array, leftbinarySearchIntelligence(array, intelligence)+1, rightbinarySearchIntelligence(array, intelligence)+1);
-    }
-
-    private static int fbinarySearchIntelligence(Character[] array, int intelligence){
-        int low = 0;
-        int high = array.length -1;
-        
-	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
-
-                if(array[mid].getIntelligence() == intelligence)
-                    return mid;
-		        else if (array[mid].getIntelligence() > intelligence) 
-			        high = mid - 1;
-		        else
-			        low = mid + 1;
-	      }
-	      return -1; 
+        return Arrays.copyOfRange(array, low, high);
     }
 
     private static int rightbinarySearchIntelligence(Character[] array, int intelligence){
@@ -379,7 +302,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getIntelligence() > intelligence) 
 			      high = mid - 1;
@@ -394,7 +317,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getIntelligence() < intelligence) 
 			      low = mid + 1;
@@ -405,26 +328,11 @@ public class CharacterList {
     }
 
     public static Character[] binarySearchCoordination(Character[] array, int coordination){
-        if(fbinarySearchCoordination(array, coordination) == -1)
+        int low = leftbinarySearchCoordination(array, coordination)+1;
+        int high = rightbinarySearchCoordination(array, coordination)+1;
+        if(low == high && array[low].getCoordination() != coordination)
             return null;
-        return Arrays.copyOfRange(array, leftbinarySearchCoordination(array, coordination)+1, rightbinarySearchCoordination(array, coordination)+1);
-    }
-
-    private static int fbinarySearchCoordination(Character[] array, int coordination){
-        int low = 0;
-        int high = array.length -1;
-        
-	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
-
-                if(array[mid].getCoordination() == coordination)
-                    return mid;
-		        else if (array[mid].getCoordination() > coordination) 
-			        high = mid - 1;
-		        else
-			        low = mid + 1;
-	      }
-	      return -1; 
+        return Arrays.copyOfRange(array, low, high);
     }
 
     private static int rightbinarySearchCoordination(Character[] array, int coordination){
@@ -432,7 +340,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getCoordination() > coordination) 
 			      high = mid - 1;
@@ -447,7 +355,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getCoordination() < coordination) 
 			      low = mid + 1;
@@ -458,26 +366,11 @@ public class CharacterList {
     }
     
     public static Character[] binarySearchLeaderShip(Character[] array, int leadership){
-        if(fbinarySearchLeaderShip(array, leadership) == -1)
+        int low = leftbinarySearchLeaderShip(array, leadership)+1;
+        int high = rightbinarySearchLeaderShip(array, leadership)+1;
+        if(low == high && array[low].getLeadership() != leadership)
             return null;
-        return Arrays.copyOfRange(array, leftbinarySearchLeaderShip(array, leadership)+1, rightbinarySearchLeaderShip(array, leadership)+1);
-    }
-
-    private static int fbinarySearchLeaderShip(Character[] array, int leadership){
-        int low = 0;
-        int high = array.length -1;
-        
-	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
-
-                if(array[mid].getLeadership() == leadership)
-                    return mid;
-		        else if (array[mid].getLeadership() > leadership) 
-			        high = mid - 1;
-		        else
-			        low = mid + 1;
-	      }
-	      return -1; 
+        return Arrays.copyOfRange(array, low, high);
     }
 
     private static int rightbinarySearchLeaderShip(Character[] array, int leadership){
@@ -485,7 +378,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getLeadership() > leadership) 
 			      high = mid - 1;
@@ -500,7 +393,7 @@ public class CharacterList {
         int high = array.length -1;
         
 	      while (low <= high) {
-		        int mid = low + (high - low) / 2;
+		        int mid = (low + high) / 2;
 
 		        if (array[mid].getLeadership() < leadership) 
 			      low = mid + 1;
