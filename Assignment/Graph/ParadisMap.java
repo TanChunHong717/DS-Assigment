@@ -105,8 +105,6 @@ public class ParadisMap {
                 res.remove(i--);
             else if(timeToKillTitan(res.get(i), TitanPosition) < timeToKillTitan(res.get(i+1), TitanPosition))
                 res.remove(i-- + 1);
-            else if(res.get(i).equals(res.get(i+1)))
-                res.remove(i--);
         }
 
         return res;
