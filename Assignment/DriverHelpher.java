@@ -265,14 +265,14 @@ public final class DriverHelpher {
                 System.out.println("Titan " + titan.index + " is too danger." + character.getName() + " run.");
                 return;
             }
-            System.out.println("Killing titan " + titan.index);
+            System.out.println("\nGo to the position of titan " + titan.index);
             if(prevPos == titan.position)
                 continue;
             
             ArrayList<Integer> path = map.realBattle(prevPos, titan.position, character.getCoordination(), character.getIntelligence(), character.getAgility()).get(0);
             for(int j = 0; j < path.size(); j++){
                 if(j == path.size()-1)
-                    System.out.println(path.get(j));
+                    System.out.print(path.get(j));
                 else
                     System.out.print(path.get(j) + " --> ");
                 
@@ -297,6 +297,7 @@ public final class DriverHelpher {
                     break;
                 }
             }
-        }        
+        }
+        System.out.println();        
     }
 }
